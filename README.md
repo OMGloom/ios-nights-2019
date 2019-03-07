@@ -14,6 +14,10 @@ The course requires at least a junior-level knowledge of programming (don’t ne
 
 To give you a proper understanding of iOS basics. After completing this course you should be able to build a simple iOS app that is pleasure to maintain and scale.
 
+## Materials
+
+You will work on an app for course attendees. During each lecture you will implement a part of the app and by the end of the course you will have a fully functioning application. You can find designs [here](https://invis.io/SKPDB7QDZ2W).
+
 ## Lectures
 
 ### 1. Swift I
