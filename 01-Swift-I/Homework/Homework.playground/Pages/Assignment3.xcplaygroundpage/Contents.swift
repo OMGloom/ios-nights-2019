@@ -15,6 +15,7 @@ protocol Animal: SoundProducer, LegsOwner {
 }
 
 protocol Farmer {
+    // Name of the farmer
     var name: String { get set }
 }
 
@@ -34,3 +35,28 @@ protocol Farm {
     // Make all animals to emit sound
     func makeNoise() -> [String]
 }
+
+// THIS PART OF CODE MUST WORK WHEN IT IS UNCOMMENTED
+/*
+var farm = MyFarm()
+
+var farmer = MyFarmer(name: "Joe")
+farm.farmer = farmer
+
+let chicken = Chicken(name: "Pipi")
+let dog = Dog(name: "Ferda")
+let cat = Cat(name: "Micka")
+
+farm.add(animal: chicken)
+farm.add(animal: dog)
+farm.add(animal: cat)
+
+farm.farmer?.name = "Jack"
+farmer.name = "Tom"
+
+farm.numberOfLegs == 10 // MUST BE TRUE
+
+farm.farmer?.name == "Jack" // MUST BE TRUE
+
+farm.makeNoise() == ["Kokodak", "Haf", "Mnau"] // MUST BE TRUE
+*/
