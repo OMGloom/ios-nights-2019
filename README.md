@@ -25,7 +25,7 @@ You will work on an app for course attendees. During each lecture you will imple
 Learn Swift basics that you will need to start with the app development
 
 - [Materials](01-Swift-I)
-- Homework
+- [Homework](01-Swift-I/Homework)
 
 ### 2. Xcode
 

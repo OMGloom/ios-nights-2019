@@ -18,10 +18,11 @@ example(of: "Reference counting") {
         }
     }
     
-    // First instance
-    // Assign to second variable
-    // Set to nil
-    // Set to nil
+    var person1: Person? = Person(name: "Jan")
+    var person2: Person? = person1
+    person1 = nil
+    print("Setting person2 to nil")
+    person2 = nil
 }
 
 //: ### Retain cycle
@@ -56,9 +57,14 @@ example(of: "Retain cycle") {
         }
     }
     
-    // Create instances
-    // Point to each other
-    // Set to nil
+    var person: Person? = Person(name: "Jan")
+    var image: ProfileImage? = ProfileImage(url: nil)
+    
+    person?.image = image
+    image?.person = person
+    
+    person = nil
+    image = nil
 }
 
 //: ### Weak reference
@@ -91,9 +97,14 @@ example(of: "Weak reference") {
         }
     }
     
-    // Create instances
-    // Point to each other
-    // Set to nil
+    var person: Person? = Person(name: "Jan")
+    var image: ProfileImage? = ProfileImage(url: nil)
+    
+    person?.image = image
+    image?.person = person
+    
+    person = nil
+    image = nil
 }
 
 //: ### Reference captured by a closure
@@ -119,8 +130,8 @@ example(of: "Reference captured by a closure") {
         }
     }
 
-    // Instantiate
-    // Set to nil
+    var assignment: Assignment? = Assignment()
+    assignment = nil
 }
 
 //: ### Weak reference in a closure
@@ -145,8 +156,8 @@ example(of: "Weak reference in a closure") {
         }
     }
 
-    // Instantiate
-    // Set to nil
+    var assignment: Assignment? = Assignment()
+    assignment = nil
 }
 
 //: ### Unowned reference
@@ -171,10 +182,10 @@ example(of: "Unowned reference") {
         }
     }
 
-    // Instantiate
-    // Assign closure to variable
-    // Set to nil
-    // Call closure
+    var assignment: Assignment? = Assignment()
+    let closure = assignment?.toggleCompletedClosure
+    assignment = nil
+    // closure?()
 }
 
 //: [Next](@next)

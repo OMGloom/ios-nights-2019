@@ -8,76 +8,122 @@ struct Person {
 }
 
 extension Person {
-    // Property age
-    // Computed property name components
-    // Function name with degree
+    // No stored properties in extensions
+    // var age: Int
+
+    var nameComponents: [String] {
+        return name.components(separatedBy: " ")
+    }
+    
+    func addDegree(_ degree: String) -> String {
+        return "\(degree) \(name)"
+    }
 }
 
 example(of: "Person extension") {
-    // Instantiate
-    // Use
+    let person = Person(name: "Jan Schwarz")
+    
+    print(person.addDegree("Bc."))
+    print(person.nameComponents)
 }
 
 //: ## Protocols
 protocol Human {
-    // Hair color variable
-    // Eye color constant
+    var eyeColor: String { get }
+    var hairColor: String { get set }
 }
 
 protocol StoryTeller {
-    // Tell story function
+    func tellStory() -> String
 }
 //: ### Conform to protocol
-struct Woman {
-    // Conform to human
+struct Woman: Human {
+    let eyeColor: String
+    var hairColor: String
+}
+extension Woman: StoryTeller {
+    func tellStory() -> String {
+        return "Once upon a time..."
+    }
 }
 // Conform to StoryTeller
 
-struct Man {
-    // Conform to human
+struct Man: Human {
+    let eyeColor: String
+    var hairColor: String
+    
+    func tellStory() -> String {
+        return "Once upon a time..."
+    }
 }
 
 example(of: "Conform to protocol") {
-    // Instantiate man
-    // Instantiate woman
+    let woman = Woman(eyeColor: "Brown", hairColor: "Brown")
+    let man = Man(eyeColor: "Black", hairColor: "Black")
     
-    // Human property
-    // Assign women to human
-    // Assign man to human
+    var human: Human?
+    
+    human = woman
+    print(type(of: human))
+    print(human?.eyeColor ?? "Nothing there")
+    print(human?.hairColor ?? "Nothing there")
+    human?.hairColor = "Blond"
+    print(human?.hairColor ?? "Nothing there")
+    human = nil
+    print(human?.hairColor ?? "Nothing there")
+    
+    human = man
+    print(human?.eyeColor ?? "Nothing there")
+    print(human?.hairColor ?? "Nothing there")
 
-    // StoryTeller property
-    // Assign women to StoryTeller
-    // Assign man to StoryTeller
+    var teller: StoryTeller?
+    teller = woman
+    print(teller?.tellStory() ?? "No story")
+    
+    // teller = man
 }
 //: ### Protocol extension
 extension StoryTeller {
-    // Little Red Riding hood
+    func littleRedRidingHoodStory() -> String {
+        return "Once upon a time there was a little red riding hood..."
+    }
 }
 
 example(of: "Protocol extension") {
-    // Instantiate
-    // Tell story
+    let woman = Woman(eyeColor: "brown", hairColor: "brown")
+    
+    print(woman.littleRedRidingHoodStory())
 }
 //: ## Delegates
 class ViewWithButton {
-    // Delegate
-    // Tap on button method
+    weak var delegate: ViewWithButtonDelegate?
+    
+    func buttonWasTapped() {
+        delegate?.buttonWasTapped(in: self)
+    }
 }
 
 class Controller {
-    // View property
+    var view: ViewWithButton?
 }
 
 protocol ViewWithButtonDelegate: class {
-    // Did tap on button
+    func buttonWasTapped(in view: ViewWithButton)
 }
 
-// Conform Controller to protocol
+extension Controller: ViewWithButtonDelegate {
+    func buttonWasTapped(in view: ViewWithButton) {
+        print("Button was tapped in \(view)")
+    }
+}
 
 example(of: "Delegate") {
-    // Create controller
-    // Create view
-    // Point to each other
-    // Tap on button
+    let controller = Controller()
+    let view = ViewWithButton()
+    
+    controller.view = view
+    view.delegate = controller
+    
+    view.buttonWasTapped()
 }
 //: [Next](@next)

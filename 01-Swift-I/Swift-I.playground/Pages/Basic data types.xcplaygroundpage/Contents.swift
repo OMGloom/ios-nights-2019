@@ -3,28 +3,51 @@ import Foundation
 
 //: ### Strings
 example(of: "Strings") {
-    // Inferred string
-    // Explicit string
-    // Multiline string
+    let helloWorld = "Hello world!"
+    print(type(of: helloWorld))
+    let helloWorld1: String = "Hello\nWorld!"
+    print(helloWorld1)
+    let multilineString = """
+        Hello
+        jfkldsjfkj
+        kjkjkl  jkljk kfjdsklj
+        dkfjdskf
+        World
+    """
+    print(multilineString)
 }
 //: ### Mutability
 example(of: "Mutability") {
-    // Mutate let string
-    // Mutate var string
+    let name = "Jan"
+    // name = "Honza"
+    /*
+     Comment
+    */
+    var lastName = "Schwarz"
+    lastName = "Kaltoun"
+    print(lastName)
 }
 //: ### Numbers
 example(of: "Numbers") {
-    // Integer
-    // Inferred decimal and type of inferred decimal
-    // Float
+    let age: Int = 28
+    let height: Double = 1.75
+    print(type(of: height))
+    let floatHeight: Float = 1.75
+    print(type(of: floatHeight))
 }
 //: ### Boolean
 example(of: "Boolean") {
-    // Boolean
-    // Toggle boolean
+    var completed: Bool = false
+    completed = true
+    completed.toggle()
+    print(completed)
 }
 //: ### Tuple
 example(of: "Tuple") {
-    // Tuple first name and last name
+    let tuple: (firstName: String, lastName: String) = ("Jan", "Schwarz")
+    print(tuple.firstName)
+    
+    let tuple1: (String,String) = ("Jan", "Schwarz")
+    print(tuple1.0)
 }
 //: [Next](@next)
