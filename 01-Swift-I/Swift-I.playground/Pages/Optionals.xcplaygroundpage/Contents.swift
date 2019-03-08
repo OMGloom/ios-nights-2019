@@ -4,52 +4,99 @@ import Foundation
 //: ## Introduction
 //: ### Why optionals
 example(of: "Type casting") {
-    // Cast string age to number
-    // Type of result
+    let stringAge = "a"
+    let age = Int(stringAge)
+    print(type(of: age))
 }
 //: ### Declare an optional
 example(of: "Optional integer") {
-    // Optional age and type of it
-    // Set to nil
-    // Set non-optional to nil
+    var age: Int?
+    age = 28
+    print(age.debugDescription)
+    age = nil
+    print(age.debugDescription)
+    
+    // var nonOptionalAge = 28
+    // nonOptionalAge = nil
 }
 //: ## Unwrapping
 //: ### Force unwrap
 example(of: "Force unwrap") {
-    // Optional age
-    // Print it
-    // If age is nil, equal to 28, force unwrap
-    // Force unwrap nil
+    var age: Int? = 29
+    print(age)
+    
+    if age == nil {
+        print("There is a nil")
+    } else if age == 28 {
+        print("Age is 28")
+    } else {
+        print("Age is \(age!)")
+    }
+    
+//    age = nil
+//    print("Age is \(age!)")
 }
 //: ### If let
 example(of: "If let") {
-    // Optional age
-    // If let with types of wrapped and unwrapped
+    let age: Int? = 28
+    
+    if let unwrappedAge = age {
+        print("My age is \(unwrappedAge)")
+        print(type(of: age))
+        print(type(of: unwrappedAge))
+    }
 }
 //: ### Guard let
 example(of: "Guard let") {
-    // Optional age
-    // guard let
+    let age: Int? = 28
+    
+    guard let unwrappedAge = age else {
+        print("There was a nil")
+        return
+    }
+    
+    print("My age is \(unwrappedAge)")
+    print(type(of: age))
+    print(type(of: unwrappedAge))
 }
 //: ## Working with optionals
 //: ### Comparison
 example(of: "Comparison") {
-    // Optional age
-    // Compare to nil, number, greater than
+    let age: Int? = 29
+    
+    if age == nil {
+        print("It is nil")
+    } else if age == 28 {
+        print("It is 28")
+    } else if let age = age, age > 28 {
+        print("It is greater")
+    }
 }
 //: ### Calling function on optional
 example(of: "Calling function on optional") {
-    // Optional age
-    // If let and signum
-    // Questionmark distance
-    // Exclamation advanced by
+    var age: Int? = 29
+    
+    if let age = age {
+        print(age.signum())
+    }
+    
+    let advanced = age?.advanced(by: 2)
+    print(type(of: advanced))
+    
+    let distance = age!.distance(to: 30)
+    print(type(of: distance))
+    age = nil
+    // age!.distance(to: 30)
 }
 //: ### Implicitly unwrapped optional
 example(of: "Implicitly unwrapped optional") {
-    // Implicitly unwrapped name
-    // Type of name
-    // Count characters
-    // Set to nil
-    // Count characters
+    var age: Int!
+    age = 28
+    print(age.signum())
+    let signum = age.signum()
+    print(type(of: signum))
+    
+    age = nil
+    // print(age.signum())
 }
 //: [Next](@next)

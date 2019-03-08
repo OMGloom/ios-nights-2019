@@ -9,7 +9,8 @@ example(of: "Struct declaration") {
         let lastName: String
     }
     
-    // Instantiate
+    let person = Person(firstName: "Jan", lastName: "Schwarz")
+    print(person)
 }
 
 //: ### Explicit initializer
@@ -18,10 +19,14 @@ example(of: "Struct with explicit initializer") {
         let firstName: String
         let lastName: String
         
-        // Explicit initializer
+        init() {
+            firstName = "Jan"
+            lastName = "Schwarz"
+        }
     }
     
-    // Initialize
+    let person = Person()
+    print(person)
 }
 
 //: ### Mutating
@@ -31,19 +36,24 @@ example(of: "Mutating structure") {
         let lastName: String
     }
 
-    // Instantiate
-    // Try to mutate
+    let person1 = Person1(firstName: "Jan", lastName: "Schwarz")
+    //person1.firstName = "Honza"
     
     struct Person2 {
         var firstName: String
         var lastName: String
         
-        // Mutating function
+        mutating func update(firstName: String) {
+            self.firstName = firstName
+        }
     }
     
-    // Instatntiate
-    // Mutate
-    // Mutate with mutating function
+    var person2 = Person2(firstName: "", lastName: "")
+    person2.firstName = "Jan"
+    print(person2)
+    
+    person2.update(firstName: "Honza")
+    print(person2)
 }
 
 //: ### Value type
@@ -53,9 +63,13 @@ example(of: "Value type") {
         var lastName: String
     }
 
-    // Instantiate
-    // Copy instance
-    // Modify name
+    let person1 = Person(firstName: "Jan", lastName: "")
+    var person2 = person1
+    
+    person2.firstName = "Honza"
+    
+    print(person1.firstName)
+    print(person2.firstName)
 }
 
 //: ### Inheritance
@@ -65,10 +79,10 @@ example(of: "Inheritance") {
         var lastName: String
     }
 
-    struct UppercasedPerson {
-    }
+//    struct UppercasedPerson: Person {
+//    }
     
-    // Try to inherit
+    // Structures cannot inherit from other sturctures
 }
 
 //: ## Classes
@@ -84,7 +98,8 @@ example(of: "Class declaration") {
         }
     }
     
-    // Instantiate
+    let person = Person(firstName: "", lastName: "")
+    print(person)
 }
 
 //: ### Mutating
@@ -99,8 +114,8 @@ example(of: "Mutating class") {
         }
     }
     
-    // Instantiate
-    // Try to mutate
+    let person1 = Person1(firstName: "", lastName: "")
+    //person1.firstName = "Jan"
     
     class Person2 {
         var firstName: String
@@ -111,12 +126,16 @@ example(of: "Mutating class") {
             self.lastName = lastName
         }
 
-        // Update function
+        func update(firstName: String) {
+            self.firstName = firstName
+        }
     }
     
-    // Instatntiate
-    // Mutate
-    // Mutate with mutating function
+    let person2 = Person2(firstName: "", lastName: "")
+    person2.firstName = "Jan"
+
+    person2.update(firstName: "Honza")
+    print(person2.firstName)
 }
 
 //: ### Reference type
@@ -131,9 +150,13 @@ example(of: "Reference type") {
         }
     }
     
-    // Instantiate
-    // Copy instance
-    // Modify name
+    let person1 = Person(firstName: "", lastName: "")
+    let person2 = person1
+    
+    person2.firstName = "Jan"
+    
+    print(person1.firstName)
+    print(person2.firstName)
 }
 
 //: ### Inheritance
@@ -157,27 +180,54 @@ example(of: "Inheritance") {
         }
     }
     
-    // Instantiate
+    let person = UppercasedPerson()
+    print(person.firstName)
 }
 
 //: ## Enumerations
 //: ### Declaration
 example(of: "Enum declaration") {
-    // Enum with iOS languages
-    // Assign to variable
+    enum Langauge {
+        case swift
+        case objc
+    }
+    
+    let lang = Langauge.swift
+    print(lang)
 }
 
 //: ### Enum with raw value
 example(of: "Enum with raw value") {
-    // Enum with iOS languages with raw value
-    // Initialize with raw value
+    enum Langauge: String {
+        case swift
+        case objc = "objective-c"
+    }
+    
+    let swift = Langauge(rawValue: "swift")
+    let objc = Langauge(rawValue: "objective-c")
+    let unknown = Langauge(rawValue: "jdkfjsd")
+    
+    print(type(of: swift))
+    print(swift!)
+    print(objc!)
+    print(unknown.debugDescription)
+    print(Langauge.swift.rawValue)
 }
 
 //: ### Enum with associated value
 example(of: "Enum with associated value") {
-    // Enum with languages
-    // Enum with platforms
-    // Assign to variable
+    enum Langauge {
+        case swift
+        case objc
+    }
+    
+    enum Platform {
+        case android
+        case ios(language: Langauge)
+    }
+    
+    let platform = Platform.ios(language: .swift)
+    print(platform)
 }
 
 //: [Next](@next)
