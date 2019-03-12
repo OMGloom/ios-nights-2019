@@ -14,23 +14,44 @@ class Node {
     
     var maximum: Int {
         // Search all children recursively and return the maximum 'value'
-        return 0
+        var maxValue: Int! = value
+        if !self.children.isEmpty {
+            maxValue = self.children.max { (node1, node2) -> Bool in
+                return node1.value > node2.value
+            }?.value
+            for child in children {
+                if child.maximum > maxValue! {
+                    maxValue = child.maximum
+                }
+            }
+        }
+        return maxValue
     }
     
     func append(node: Node) {
         // Implement appending node to the children array
+        self.children.append(node)
     }
     
     func removeNode(at index: Int) -> Node? {
         // Remove a child at given index
         // Do not crash when the index is out of range
+        if index > self.children.count {
+            return nil
+        }
         // Return a removed Node if any node was removed
-        return nil
+        return self.children.remove(at: index)
     }
     
     func sortedValues() -> [Int] {
         // Search all children recursively and return a sorted array of all values from the whole tree
-        return []
+        var allChildrenValues: [Int] = [self.value]
+        if !self.children.isEmpty {
+            for child in self.children {
+                allChildrenValues += child.sortedValues()
+            }
+        }
+        return allChildrenValues.sorted()
     }
 }
 
